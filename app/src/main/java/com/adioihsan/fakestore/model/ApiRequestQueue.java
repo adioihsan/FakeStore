@@ -38,7 +38,7 @@ public class ApiRequestQueue {
 
     public void add(){
         requestQueue.add(arrayRequest);
-    }
+    } 
 
     // Request directly in api class  | Not Working yet
     public ApiRequestQueue getJsonArrayRequest(String url){
