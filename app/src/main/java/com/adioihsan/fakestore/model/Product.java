@@ -1,8 +1,9 @@
 package com.adioihsan.fakestore.model;
 
-import android.app.DownloadManager;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Product {
+public class Product implements Parcelable {
     private int id;
     private String title;
     private double price;
@@ -11,6 +12,31 @@ public class Product {
     private String image;
     private double rate;
     private int count;
+
+    public Product(){ }
+
+    public Product(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        price = in.readDouble();
+        description = in.readString();
+        category = in.readString();
+        image = in.readString();
+        rate = in.readDouble();
+        count = in.readInt();
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -75,4 +101,22 @@ public class Product {
     public void setCount(int count) {
         this.count = count;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeDouble(price);
+        dest.writeString(description);
+        dest.writeString(category);
+        dest.writeString(image);
+        dest.writeDouble(rate);
+        dest.writeInt(count);
+    }
+
 }

@@ -1,46 +1,50 @@
 package com.adioihsan.fakestore.model;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
-import org.json.JSONException;
+import java.util.ArrayList;
 
 public class ApiRequestQueue {
     private static ApiRequestQueue instance = null;
+    ArrayList<Product> products;
     private RequestQueue requestQueue;
-    private JsonArrayRequest arrayRequest;
 
-    public static synchronized ApiRequestQueue getInstance(){
-        if(instance == null){
+    public static synchronized ApiRequestQueue getInstance() {
+        if (instance == null) {
             instance = new ApiRequestQueue();
         }
         return instance;
-    };
+    }
 
-    public RequestQueue getRequestQueue(Context context){
-        if(requestQueue == null){
+    ;
+
+    public RequestQueue getRequestQueue(Context context) {
+        if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(context);
         }
         return requestQueue;
     }
 
-    public ApiRequestQueue setRequestQueue(Context context){
+    public ApiRequestQueue setRequestQueue(Context context) {
         requestQueue = Volley.newRequestQueue(context);
         return instance;
     }
 
-    public void add(){
-        requestQueue.add(arrayRequest);
-    } 
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
 
     // Request directly in api class  | Not Working yet
+    public void getJsonArrayRequest(JsonArrayRequest request) {
+        requestQueue.add(request);
+    }
+
+
+    /* Necessary
     public ApiRequestQueue getJsonArrayRequest(String url){
         arrayRequest =  new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -58,5 +62,5 @@ public class ApiRequestQueue {
             Log.d("respon", "getJsonArrayRequest: GAGAL MENDAPATKAN DATA");
         });
         return instance;
-    }
+    }*/
 }
