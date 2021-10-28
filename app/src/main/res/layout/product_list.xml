@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_iconmonstr_arrow_left_thin"
+        android:layout_alignParentLeft="true"
+        android:backgroundTint="@color/transparent" />
+
+    <EditText
+        android:id="@+id/editSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="1dp"
+        android:layout_toLeftOf="@+id/btnFilter"
+        android:layout_toRightOf="@+id/btnBack"
+        android:hint="Cari Produk,toko,dan lainnya..." />
+    <ImageButton
+        android:id="@+id/btnFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_iconmonstr_filter"
+        android:layout_alignParentRight="true"
+        android:backgroundTint="@color/transparent"
+        android:tooltipText="filter"
+        />
+   <TableLayout
+       android:id="@+id/tblFilter"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginHorizontal="20dp"
+       android:layout_below="@+id/editSearch"
+       android:layout_marginTop="10dp"
+       >
+       <TableRow
+           >
+           <TextView
+               android:text="Terkait"
+               android:textSize="18dp"
+               android:layout_marginHorizontal="10dp"
+               />
+           <TextView
+               android:layout_width="2dp"
+               android:background="@color/gray"
+               android:layout_marginHorizontal="5dp"
+               />
+           <TextView
+               android:text="Terbaru"
+               android:textSize="18dp"
+               android:layout_marginHorizontal="10dp"
+               />
+           <TextView
+               android:layout_width="2dp"
+               android:background="@color/gray"
+               android:layout_marginHorizontal="5dp"
+               />
+           <TextView
+               android:text="Terlaris"
+               android:textSize="18dp"
+               android:layout_marginHorizontal="10dp"
+               />
+           <TextView
+               android:layout_width="2dp"
+               android:background="@color/gray"
+               android:layout_marginHorizontal="5dp"
+               />
+           <TextView
+               android:text="Harga"
+               android:textSize="18dp"
+               android:layout_marginHorizontal="10dp"
+               />
+       </TableRow>
+   </TableLayout>
+    <GridView
+        android:id="@+id/gridProducts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tblFilter"
+        android:layout_margin="10dp"
+        android:horizontalSpacing="20dp"
+        android:verticalSpacing="20dp"
+        android:numColumns="2"
+        />
+</RelativeLayout>
