@@ -13,45 +13,50 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 public class ApiRequestQueue {
-    private static ApiRequestQueue instance;
+    private static ApiRequestQueue instance = null;
     private RequestQueue requestQueue;
-    JSONArray arrResponse;
-    private Context context;
+    private JsonArrayRequest arrayRequest;
 
-    private ApiRequestQueue(Context context){
-        this.context = context;
-    }
-    public static synchronized ApiRequestQueue getInstance(Context context){
+    public static synchronized ApiRequestQueue getInstance(){
         if(instance == null){
-            instance = new ApiRequestQueue(context);
+            instance = new ApiRequestQueue();
         }
         return instance;
     };
-    public RequestQueue getRequestQueue(){
+
+    public RequestQueue getRequestQueue(Context context){
         if(requestQueue == null){
-            requestQueue = new Volley().newRequestQueue(context);
+            requestQueue = Volley.newRequestQueue(context);
         }
         return requestQueue;
     }
 
+    public ApiRequestQueue setRequestQueue(Context context){
+        requestQueue = Volley.newRequestQueue(context);
+        return instance;
+    }
+
+    public void add(){
+        requestQueue.add(arrayRequest);
+    }
+
     // Request directly in api class  | Not Working yet
-//    public JSONArray getJsonArrayRequest(String url){
-//        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-//                new Response.Listener<JSONArray>() {
-//                    @Override
-//                    public void onResponse(JSONArray response) {
-//                        arrResponse = response;
-//                        try {
-//                            String title = response.getJSONObject(1).getString("title");
-//                            Log.d("respon","Respone is : "+title);
-//                            System.out.println("respon : "+title);
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                },error -> {
-//
-//        });
-//        return arrResponse;
-//    }
+    public ApiRequestQueue getJsonArrayRequest(String url){
+        arrayRequest =  new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            String title = response.getJSONObject(1).getString("title");
+                            Log.d("respon", "Respone is : " + title);
+                            System.out.println("respon : " + title);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, error -> {
+            Log.d("respon", "getJsonArrayRequest: GAGAL MENDAPATKAN DATA");
+        });
+        return instance;
+    }
 }
